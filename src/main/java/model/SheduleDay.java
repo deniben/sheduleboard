@@ -1,7 +1,11 @@
 package model;
 
+import enums.DayOfWeek;
+
 public class SheduleDay {
     private String group;
+
+    private DayOfWeek dayOfWeek;
 
     private String lesson1;
     private String audience1;
@@ -177,5 +181,13 @@ public class SheduleDay {
 
     public void setGroup(String group) {
         this.group = group;
+    }
+
+    public DayOfWeek getDayOfWeek() {
+        return dayOfWeek;
+    }
+
+    public void setDayOfWeek(DayOfWeek dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 }

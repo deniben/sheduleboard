@@ -3,6 +3,7 @@ package dao.implementation;
 import dao.BaseDao;
 import dbconnection.ConnectionUtils;
 import model.SheduleDay;
+import utils.EnumHelper;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,6 +14,7 @@ import java.util.Optional;
 
 public class SheduleDayDao implements BaseDao<SheduleDay> {
     Connection connection;
+    EnumHelper enumHelper = new EnumHelper();
 
     @Override
     public Optional<SheduleDay> get(long id) {
@@ -29,8 +31,8 @@ public class SheduleDayDao implements BaseDao<SheduleDay> {
             connection = ConnectionUtils.getConnection();
             String query = "INSERT INTO public.shedule_day(lesson1, audience1, name_surname1, " +
                     "lesson2, audience2, name_surname2, lesson3, audience3, name_surname3, " +
-                    "lesson4, audience4, name_surname4, lesson5, audience5, name_surname5, lesson6, audience6, name_surname6, group) " +
-                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                    "lesson4, audience4, name_surname4, lesson5, audience5, name_surname5, lesson6, audience6, name_surname6, student_group, day_of_week) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setString(1, sheduleDay.getLesson1());
@@ -58,6 +60,7 @@ public class SheduleDayDao implements BaseDao<SheduleDay> {
         preparedStatement.setString(18, sheduleDay.getNameSurname6());
 
         preparedStatement.setString(19, sheduleDay.getGroup());
+        preparedStatement.setString(20, enumHelper.getStringDayOfWeek(sheduleDay.getDayOfWeek()));
 
         preparedStatement.execute();
         preparedStatement.close();
